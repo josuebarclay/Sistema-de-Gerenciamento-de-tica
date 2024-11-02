@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pr-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Recibo de Pagamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .recibo-container {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 80%;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .recibo-info {
+            margin-bottom: 20px;
+        }
+        .assinatura {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .assinatura .line {
+            border-top: 1px solid #000;
+            width: 200px;
+            margin: 0 auto;
+        }
+        .assinatura p {
+            margin-top: 5px;
+        }
+        .btn-imprimir {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .empresa-info {
+        display: flex;
+        align-items: flex-start;
+        }
+
+        .empresa-info {
+            display: flex; /* Alinha a logo e informações lado a lado */
+            border: 1px solid #000; /* Borda ao redor do contêiner da empresa */
+            padding: 15px; /* Espaçamento interno */
+            margin-bottom: 20px; /* Espaçamento abaixo do contêiner */
+        }
+
+        .logo-container {
+            margin-right: 15px; /* Espaçamento à direita da logo */
+        }
+
+        .logo {
+            width: 100%; /* Faz a imagem ocupar a largura do contêiner */
+            height: auto; /* Mantém a proporção da imagem */
+        }
+
+        .form-container {
+            border: 1px solid #000; /* Borda ao redor do formulário */
+            padding: 15px; /* Espaçamento interno */
+        }
+
+        @media print {
+            .form-control-plaintext {
+                border: none; /* Remove bordas padrão na impressão */
+                border-bottom: 1px solid #000; /* Linha inferior na impressão */
+            }
+            .form-group {
+                margin-bottom: 15px; /* Espaçamento entre grupos no modo impressão */
+            }
+            .form-container {
+                border: 1px solid #000; /* Borda ao redor do formulário na impressão */
+                padding: 15px; /* Espaçamento interno do formulário */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+
+<div class="recibo-container">
+
+    <!-- Logo e Dados da Empresa -->
+    <div class="empresa-info d-flex align-items-start">
+        <img th:src="@{/img/logo.png}" alt="Logo da Empresa" class="logo" style="width: 320px; height: 200px;">
+        <div class="ml-3">
+            <p><strong>ÓPTICA CLODOALDO</strong></p>
+            <p>
+                <i class="fab fa-instagram-square"></i> optica_clodoaldo
+                <i class="fab fa-facebook"></i> Óptica-Clodoaldo
+            </p>
+            <p>
+                Telefone: (67) 99221-1305 / 99938-8922 / 99122-4501
+            </p>
+            <p>Endereço: AV. JULIO de CASTILHO, 3026 - VILA PALMIRA - CAMPO GRANDE - MS</p>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="form-container" style="max-width: 87%;" >
+            <form>
+                <!-- Informações Pessoais -->
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label><strong>Cliente:</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.nome}" readonly />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label><strong>Data:</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.FormattedDataAle}" readonly />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label><strong>Entrega Prevista:</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.formattedEntregaPrev}" readonly />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label><strong>Armação:</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.armacao}" readonly />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label><strong>Lente:</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.lente}" readonly />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label><strong>Valor (R$):</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.valor}" readonly />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label><strong>Sinal (R$):</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.sinal}" readonly />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label><strong>Saldo (R$):</strong></label>
+                        <input type="text" class="form-control-plaintext border-bottom" th:value="${cliente.saldo}" readonly />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- Script para imprimir automaticamente -->
+<script>
+    window.onload = function() {
+        window.print();
+    };
+</script>
+</body>
+</html>

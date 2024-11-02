@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pr-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-image: url('/images/');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .navbar {
+            z-index: 1;
+        }
+        .content {
+            padding-top: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        .is-invalid {
+    border-color: red;
+
+    .lblCliente {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h5 {
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+    color: #007bff;
+}
+
+.table-bordered th, .table-bordered td {
+    vertical-align: middle;
+}
+
+.btn-rounded {
+    border-radius: 25px;
+}
+}
+    </style>
+</head>
+<body>
+
+<nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+
+<div class="content">
+    <div class="form-container">
+        <form th:action="@{/clientes/salvar}" method="post" th:object="${cliente}">
+            <!-- Título -->
+            <div class="form-row mb-4">
+                <div class="form-group col-md-12">
+                    <h5 class="card-title text-center">CADASTRO DE CLIENTES</h5>
+                </div>
+            </div>
+
+            <!-- Informações Pessoais -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nome" class="lblCliente">Nome:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''" th:field="*{nome}" id="nome" placeholder="Nome" required>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+
+                <!-- Data de Nascimento -->
+                <div class="form-group col-sm-6">
+                    <label for="data" class="lblCliente">DATA:</label>
+                    <input type="date" class="form-control" th:field="*{dataNasc}" id="data" placeholder="DATA">
+                    <div class="alert alert-danger alert-dismissible fade show" th:if="${#fields.hasErrors('dataNasc')}" th:errors="*{dataNasc}"></div>
+                </div>
+
+                <div class="form-group col-md-10">
+                    <label for="endereco" class="lblCliente">Endereço:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('endereco')} ? 'is-invalid' : ''" th:field="*{endereco}" id="endereco" placeholder="Endereço">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="numero" class="lblCliente">Numero:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('numero')} ? 'is-invalid' : ''" th:field="*{numero}" id="numero" placeholder="Numero">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="cep" class="lblCliente">CEP:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('cep')} ? 'is-invalid' : ''" th:field="*{cep}" id="cep" placeholder="CEP">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"></div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="bairro" class="lblCliente">Bairro:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('bairro')} ? 'is-invalid' : ''" th:field="*{bairro}" id="bairro" placeholder="Bairro" >
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('bairro')}" th:errors="*{bairro}"></div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="cidade" class="lblCliente">Cidade:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('cidade')} ? 'is-invalid' : ''" th:field="*{cidade}" id="cidade" placeholder="Cidade">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}"></div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="telefone" class="lblCliente">Telefone:</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('telefone')} ? 'is-invalid' : ''" th:field="*{telefone}" id="telefone" placeholder="Telefone">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+                </div>
+
+                <!-- Data de Início -->
+                <div class="form-group col-sm-6">
+                    <label for="dataAle" class="lblCliente">DATA NASCIMENTO:</label>
+                    <input type="date" class="form-control" th:field="*{dataAle}" id="dataAle" placeholder="DATA">
+                    <div class="alert alert-danger alert-dismissible fade show" th:if="${#fields.hasErrors('dataAle')}" th:errors="*{dataAle}"></div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="valor" class="lblCliente">Valor (R$):</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('valor')} ? 'is-invalid' : ''" th:field="*{valor}" id="valor" placeholder="1000">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></div>
+                </div>
+
+                <!-- Data de Previa -->
+                <div class="form-group col-sm-6">
+                    <label for="entregaPrev" class="lblCliente">Entrega Previa:</label>
+                    <input type="date" class="form-control" th:field="*{entregaPrev}" id="entregaPrev">
+                    <div class="alert alert-danger alert-dismissible fade show" th:if="${#fields.hasErrors('entregaPrev')}" th:errors="*{entregaPrev}"></div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="sinal" class="lblCliente">Sinal (R$):</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('sinal')} ? 'is-invalid' : ''" th:field="*{sinal}" id="sinal" placeholder="1000">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('sinal')}" th:errors="*{sinal}"></div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="Saldo" class="lblCliente">Saldo (R$):</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('Saldo')} ? 'is-invalid' : ''" th:field="*{Saldo}" id="Saldo" placeholder="1000">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('Saldo')}" th:errors="*{Saldo}"></div>
+                </div>
+            </div>
+
+            <!-- Prescrição Óptica -->
+            <div class="container mt-5">
+                <h2 class="mb-4">Prescrição Óptica</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>ES</th>
+                            <th>ESF.</th>
+                            <th>CIL.</th>
+                            <th>EIXO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th rowspan="2">LONGE</th>
+                            <td>OD</td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeODESF}" placeholder="Esf">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeODCIL}" placeholder="Cil">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeODEixo}" placeholder="Eixo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OE</td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeOEESF}" placeholder="Esf">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeOECIL}" placeholder="Cil">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{longeOEEixo}" placeholder="Eixo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">PERTO</th>
+                            <td>OD</td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoODESF}" placeholder="Esf">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoODCIL}" placeholder="Cil">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoODEixo}" placeholder="Eixo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OE</td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoOEESF}" placeholder="Esf">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoOECIL}" placeholder="Cil">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{pertoOEEixo}" placeholder="Eixo">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="armacao" class="lblCliente">Armacao:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('armacao')} ? 'is-invalid' : ''" th:field="*{armacao}" id="armacao" placeholder="Armacao">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('armacao')}" th:errors="*{armacao}"></div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="lente" class="lblCliente">lente:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('lente')} ? 'is-invalid' : ''" th:field="*{lente}" id="lente" placeholder="Lente">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('lente')}" th:errors="*{lente}"></div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="dp" class="lblCliente">DP:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('dp')} ? 'is-invalid' : ''" th:field="*{dp}" id="dp" placeholder="DP">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{dp}"></div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="od" class="lblCliente">OD:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('od')} ? 'is-invalid' : ''" th:field="*{od}" id="od" placeholder="OD">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('od')}" th:errors="*{od}"></div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="oe" class="lblCliente">OE:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('oe')} ? 'is-invalid' : ''" th:field="*{oe}" id="oe" placeholder="OE">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('oe')}" th:errors="*{oe}"></div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="altura" class="lblCliente">Altura:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('altura')} ? 'is-invalid' : ''" th:field="*{altura}" id="altura" placeholder="Altura">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('altura')}" th:errors="*{altura}"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="medico" class="lblCliente">Médico:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('medico')} ? 'is-invalid' : ''" th:field="*{medico}" id="medico" placeholder="Nome do Médico">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('medico')}" th:errors="*{medico}"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="convenio" class="lblCliente">Convênio:</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('convenio')} ? 'is-invalid' : ''" th:field="*{convenio}" id="convenio" placeholder="Convenio">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('convenio')}" th:errors="*{convenio}"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- Botões -->
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-success btn-rounded btn-block">Cadastrar Cliente</button>
+                <a th:href="@{/}" class="btn btn-outline-primary btn-rounded btn-block">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
